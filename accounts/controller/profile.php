@@ -3,7 +3,7 @@ session_start();
 include('../controller/database.php');
 
 $adminid  = $_SESSION['id'];
-$admins    = $mysqli->query("SELECT * from pos_users where user_id='$adminid'");
+$admins    = $mysqli->query("SELECT * from ub_teacher where teacher_id ='$adminid'");
 
 
 if(isset($_POST['update-profile'])){
@@ -33,13 +33,12 @@ if(isset($_POST['update-profile'])){
 		}
 	}
 
-	$mysqli->query("UPDATE  pos_users SET 
+	$mysqli->query("UPDATE  ub_teacher SET 
 						firstname ='$fname' ,
 						lastname ='$lname' ,
-						username ='$username' , 
 						password = '$password' , 
 						profile='$location'
-						 where user_id='$adminid'
+						 where teacher_id ='$adminid'
 					");
 		
 	echo '  <script>

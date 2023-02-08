@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+require "vendor/autoload.php";
 include('../controller/database.php');
 
 $teacherid       = $_SESSION['id'];
@@ -21,6 +21,7 @@ if(isset($_POST['add-ticket'])){
 	
 	$title          = $_POST['title'];
 	$details        = $_POST['details'];
+	$lab       		= $_POST['lab'];
 	$id             = $_SESSION['id'];
 	$alphabet = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $pass = array(); //remember to declare $pass as an array
@@ -31,9 +32,28 @@ if(isset($_POST['add-ticket'])){
     }
    
 	$transcode =  implode($pass);
+	
+	
+    
+    $client = new GuzzleHttp\Client(); 
+    
+    $response = $client->request("POST", "https://api.sms.fortres.net/v1/messages", [
+        "headers" => [
+            "Content-type" => "application/json"
+        ],
+        "auth" => ["aa519e2d-0975-4f86-81c7-1ddd191fdbfe", "QQeCTQoR6xBKwFQJQTI2UlrJCbCyrw8RNh37Z4Ti"],
+        "json" => [
+            "recipient" => "09318326634,09493374841",
+            "message" => "Hello New Ticket has been raise. Ticket Code ". $transcode
+        ]
+    ]);
+    
+    if ($response->getStatusCode() == 200) {
+        //echo $response->getBody();
+    }
 
-	$mysqli->query("INSERT INTO ub_tickets (ticket_number, title , content ,teacher_id,status) 
-			VALUES ('$transcode','$title','$details','$id','0')");
+	$mysqli->query("INSERT INTO ub_tickets (ticket_number, title , content ,teacher_id,status,lab) 
+			VALUES ('$transcode','$title','$details','$id','0','$lab')");
 
   	        echo '<script>
 					Swal.fire({

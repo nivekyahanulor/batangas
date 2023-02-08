@@ -43,7 +43,7 @@ if(isset($_POST['add-lab-student'])){
 	$data        = $_POST['data'];
 	
 	// CHECK STUDENT //
-	$ub_students_data = $mysqli->query("SELECT a.* from ub_laboratory_students a where a.student_id='$student'");
+	$ub_students_data = $mysqli->query("SELECT a.* from ub_laboratory_students a where a.student_id='$student' and laboratory_id='$data'");
 	$count            = $ub_students_data->num_rows;
 		
 	if($count !=0){
@@ -72,17 +72,17 @@ if(isset($_POST['delete-teacher'])){
 	
 	$id       = $_POST['id'];
 
-	$mysqli->query("DELETE FROM  ub_teacher where teacher_id ='$id' ");
+	$mysqli->query("DELETE FROM  ub_laboratory where lab_id  ='$id' ");
 	
 	
 	echo '  <script>
 					Swal.fire({
 							title: "Success! ",
-							text: " Teacher is Successfully Deleted",
+							text: " Laboratory Details is Successfully Deleted",
 							icon: "success",
 							type: "success"
 							}).then(function(){
-								window.location = "teacher.php";
+								window.location = "laboratory.php";
 							});
 			</script>';
 	
@@ -110,31 +110,29 @@ if(isset($_POST['delete-lab-student'])){
 	
 }
 
-if(isset($_POST['update-student'])){
+if(isset($_POST['update-lab'])){
 	
 	$id             = $_POST['id'];
-	$fname          = $_POST['fname'];
-	$lname          = $_POST['lname'];
-	$contactnumber  = $_POST['contactnumber'];
-	$email          = $_POST['email'];
-	$idnumber       = $_POST['idnumber'];
+	$title          = $_POST['title'];
+	$day            = $_POST['day'];
+	$time  			= $_POST['time'];
+	$room           = $_POST['room'];
 	
-	$mysqli->query("UPDATE  ub_students set firstname  ='$fname' ,
-										    lastname  ='$lname' ,
-										    email  ='$email' ,
-										    id_number  ='$idnumber' ,
-										    contact  ='$contactnumber' 
-										    WHERE student_id  ='$id'
+	$mysqli->query("UPDATE  ub_laboratory set lab_name  ='$title' ,
+										    lab_date  ='$day' ,
+										    lab_time  ='$time' ,
+										    lab_room  ='$room' 
+										    WHERE lab_id  ='$id'
 					");
 		
 	echo '  <script>
 					Swal.fire({
 							title: "Success! ",
-							text: "Student Details is Successfully Updated",
+							text: "Laboratory Details is Successfully Updated",
 							icon: "success",
 							type: "success"
 							}).then(function(){
-								window.location = "student.php";
+								window.location = "laboratory.php";
 							});
 			</script>';
 	

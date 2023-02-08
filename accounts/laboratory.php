@@ -33,11 +33,11 @@
                     <td class="text-center"><?php echo $val->lab_room;?></td>
                     <td class="text-center"><?php echo $val->date_added;?></td>
                     <td class="text-center">
-						<button class="btn btn-info  btn-sm" data-bs-toggle="modal" data-bs-target="#edit-student<?php echo $val->student_id;?>"> <i class="bi bi-pencil-square"></i> </button>
-						<button class="btn btn-warning  btn-sm" data-bs-toggle="modal" data-bs-target="#delete-student<?php echo $val->student_id;?>"> <i class="bi bi-trash"></i> </button>
+						<button class="btn btn-info  btn-sm" data-bs-toggle="modal" data-bs-target="#edit-student<?php echo $val->lab_id;?>"> <i class="bi bi-pencil-square"></i> </button>
+						<button class="btn btn-warning  btn-sm" data-bs-toggle="modal" data-bs-target="#delete-student<?php echo $val->lab_id;?>"> <i class="bi bi-trash"></i> </button>
 					</td>
                   </tr>
-					<div class="modal fade" id="edit-student<?php echo $val->student_id;?>" tabindex="-1">
+					<div class="modal fade" id="edit-student<?php echo $val->lab_id;?>" tabindex="-1">
 					 <div class="modal-dialog modal-dialog-centered">
 					  <div class="modal-content">
 						<div class="modal-header">
@@ -52,48 +52,49 @@
 							</div>
 							<div class="col-12">
 							  <label for="inputNanme4" class="form-label">Day: </label>
+							  <input type="hidden" class="form-control" name="id" value="<?php echo $val->lab_id;?>" required>
 								<select class="form-control" name="day">	
 									<option value=""> - Select Day - </option>
-									<option value="Monday"> Monday </option>
-									<option value="Tuesday"> Tuesday </option>
-									<option value="Wednesday"> Wednesday </option>
-									<option value="Thursday">Thursday </option>
-									<option value="Friday"> Friday </option>
-									<option value="Saturday"> Saturday </option>
+									<option value="Monday" <?php if($val->lab_date=="Monday"){ echo "selected";} else {}?>> Monday </option>
+									<option value="Tuesday" <?php if($val->lab_date=="Tuesday"){ echo "selected"; } else {}?>> Tuesday </option>
+									<option value="Wednesday" <?php if($val->lab_date=="Wednesday"){ echo "selected"; } else {}?>> Wednesday </option>
+									<option value="Thursday" <?php if($val->lab_date=="Thursday"){ echo "selected";} else {}?>>Thursday </option>
+									<option value="Friday" <?php if($val->lab_date=="Friday"){ echo "selected"; } else {}?>> Friday </option>
+									<option value="Saturday" <?php if($val->lab_date=="Saturday"){ echo "selected"; } else {}?>> Saturday </option>
 								</select>
 							</div>
 							<div class="col-12">
 							  <label for="inputNanme4" class="form-label">Time: </label>
-							  <input type="time" class="form-control" name="time" required>
+							  <input type="time" class="form-control" name="time" value="<?php echo $val->lab_time;?>" required>
 							</div>
 							
 							<div class="col-12">
 							  <label for="inputNanme4" class="form-label">Room: </label>
-							  <input type="text" class="form-control" name="room" required>
+							  <input type="text" class="form-control" name="room" value="<?php echo $val->lab_room;?>" required>
 							</div>
 						
 						 </div>
 							<div class="modal-footer">
-							  <button type="submit" class="btn btn-primary" name="update-student">Update </button>
+							  <button type="submit" class="btn btn-primary" name="update-lab">Update </button>
 							  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 							</div>
 						</form>
 					  </div>
 					</div>
 					</div>	
-					 <div class="modal fade" id="delete-student<?php echo $val->student_id;?>" tabindex="-1">
+					 <div class="modal fade" id="delete-student<?php echo $val->lab_id;?>" tabindex="-1">
 					 <div class="modal-dialog modal-dialog-centered">
 					  <div class="modal-content">
 						<div class="modal-header">
-						  <h5 class="modal-title">Delete Teacher</h5>
+						  <h5 class="modal-title">Delete Laboratory</h5>
 						  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
 						<div class="modal-body">
 						 <form class="row g-3" method="post">
 							<div class="col-12">
 							 <br>
-							  Are your sure to delete this Teacher Data?
-							  <input type="hidden" class="form-control" name="id" value="<?php echo $val->teacher_id;?>" required>
+							  Are your sure to delete this Laboratory Data?
+							  <input type="hidden" class="form-control" name="id" value="<?php echo $val->lab_id;?>" required>
 							</div>
 						</div>
 						<div class="modal-footer">

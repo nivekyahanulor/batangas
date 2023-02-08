@@ -18,6 +18,7 @@
                   <tr>
                     <th scope="col"  class="text-center">Ticket Number</th>
                     <th scope="col"  class="text-center">Title</th>
+                    <th scope="col"  class="text-center">Com Lab</th>
                     <th scope="col"  class="text-center">Details</th>
                     <th scope="col"  class="text-center">Status</th>
                     <th scope="col"  class="text-center">Date Added</th>
@@ -29,6 +30,7 @@
                   <tr>
                     <td class="text-center"><?php echo $val->ticket_number;?></td>
                     <td class="text-center"><?php echo $val->title;?></td>
+                    <td class="text-center">Com Lab - <?php echo $val->lab;?></td>
                     <td class="text-center"><?php echo $val->content;?></td>
                     <td class="text-center"><?php if($val->status == 0){ echo "Pending";} else { echo "Closed";}?></td>
                     <td class="text-center"><?php echo $val->date_added;?></td>
@@ -82,6 +84,17 @@
 						<div class="col-12">
 						  <label for="inputNanme4" class="form-label">Ticket Title: </label>
 						  <input type="text" class="form-control" name="title" required>
+						</div>
+						<div class="col-12">
+						  <label for="inputNanme4" class="form-label">Com Lab: </label>
+						  <select type="text" class="form-control" name="lab" required>
+							<option value=""> - Select Laboratory - </option>
+							<option value="1"> Com Lab 1 </option>
+							<option value="2"> Com Lab 2 </option>
+							<option value="3"> Com Lab 3 </option>
+							<option value="4"> Com Lab 4 </option>
+							<option value="5"> Com Lab 5 </option>
+						  </select>
 						</div>
 						
 						<div class="col-12">

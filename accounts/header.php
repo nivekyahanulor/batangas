@@ -35,7 +35,7 @@
 		error_reporting(0);
 		$uri_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 		$uri_segments = explode('/', $uri_path);
-		$page =  $uri_segments[3];
+		$page =  $uri_segments[2];
 		if ( $page == 'index.php'  ) {
             $index = 'active';
         }else if ($page == 'order.php') {

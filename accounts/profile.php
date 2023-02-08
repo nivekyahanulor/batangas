@@ -78,7 +78,7 @@
                          </div> 
 						 <div class="mb-3 col-md-6">
                             <label for="lastName" class="form-label">User Name: </label>
-                            <input class="form-control" type="text" name="username"  value="<?php echo $val->username;?>"/>
+                            <input class="form-control" type="text" name="username"  value="<?php echo $val->id_number;?>" readonly/>
                          </div> 
 						 <div class="mb-3 col-md-6">
                             <label for="lastName" class="form-label">Password: </label>

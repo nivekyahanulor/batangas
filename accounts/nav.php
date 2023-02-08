@@ -192,9 +192,14 @@
 							<?php } ?>
                             </div>
                           </div>
+                          
                           <div class="flex-grow-1">
                             <span class="fw-semibold d-block"><?php echo $aval[1] . ' ' .$aval[2];?></span>
+                            <?php if($_SESSION['role'] == 1){?>
                             <small class="text-muted">Admininstrator</small>
+                            <?php } else { ?>
+                            <small class="text-muted">Teacher</small>
+                            <?php } ?>
                           </div>
                         </div>
                       </a>
@@ -202,6 +207,7 @@
                     <li>
                       <div class="dropdown-divider"></div>
                     </li>
+                     <?php if($_SESSION['role'] == 1){}else{?>
                     <li>
                       <a class="dropdown-item" href="profile.php">
                         <i class="bx bx-user me-2"></i>
@@ -209,9 +215,11 @@
                       </a>
                     </li>
                   
+                  
                     <li>
                       <div class="dropdown-divider"></div>
                     </li>
+                      <?php } ?>
                     <li>
                       <a class="dropdown-item" href="logout.php">
                         <i class="bx bx-power-off me-2"></i>

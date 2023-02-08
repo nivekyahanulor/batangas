@@ -70,6 +70,130 @@
      });
 	</script>
 	<?php
+	$weekly_report = $mysqli->query("select t.d,price from ( select 'Saturday' as d union all select 'Sunday' union all select 'Monday' union all select 'Tuesday' union all select 'Wednesday' union all select 'Thursday' union all select 'Friday' )t left join ( SELECT DAYNAME(a.date_added) AS DAY, count(a.ticket_id) price FROM `ub_tickets` a WHERE a.date_added >= DATE(NOW()) - INTERVAL 7 DAY GROUP BY DAY )t1 on t.d=t1.day");
+	$weeklyres = array();
+	while($weekly = $weekly_report->fetch_object()){ 
+		 $weeklyres[] = array("name" => $weekly->d,
+							   "y" => $weekly->price
+						);
+	}
+	
+	
+	?>
+	 <script>
+	//WEEKLY
+	
+	Highcharts.chart('container-weekly', {
+		chart: {
+			type: 'column'
+		},
+		title: {
+			align: 'center',
+			text: 'Weekly Tickets Report'
+		},
+		accessibility: {
+			announceNewData: {
+				enabled: true
+			}
+		},
+		xAxis: {
+			type: 'category'
+		},
+		yAxis: {
+			title: {
+				text: 'Total Tickets'
+			}
+
+		},
+		legend: {
+			enabled: false
+		},
+		plotOptions: {
+			series: {
+				borderWidth: 0,
+				dataLabels: {
+					enabled: true,
+					format: '{point.y}'
+				}
+			}
+		},
+
+		tooltip: {
+			headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+			pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> of total<br/>'
+		},
+
+		series: [
+			{
+				name: "Day",
+				colorByPoint: true,
+				data: <?php echo json_encode($weeklyres,JSON_NUMERIC_CHECK);?>
+			}
+		]
+	});
+
+	</script>
+	<?php
+	
+	$top10   = $mysqli->query("SELECT sum(a.lab)qty ,a.lab from ub_tickets a group by a.lab");
+			 while($vals = $top10->fetch_object()){
+					$tops[] = array("Com Lab -" . $vals->lab, $vals->qty);
+			}
+			
+	?>
+	<script>
+	Highcharts.chart('container-top', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'MOST LABORATORY REPORTS'
+    },
+    subtitle: {
+        text: 'Source: DATABASE'
+    },
+    xAxis: {
+        type: 'category',
+        labels: {
+            rotation: -45,
+            style: {
+                fontSize: '13px',
+                fontFamily: 'Verdana, sans-serif'
+            }
+        }
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'TOP'
+        }
+    },
+    legend: {
+        enabled: false
+    },
+    tooltip: {
+        pointFormat: 'Top Reports: <b>{point.y} </b>'
+    },
+    series: [{
+        name: 'Population',
+        data: <?php echo json_encode($tops,JSON_NUMERIC_CHECK);?>,
+        dataLabels: {
+            enabled: true,
+            rotation: -90,
+            color: '#FFFFFF',
+            align: 'right',
+            format: '{point.y}', // one decimal
+            y: 10, // 10 pixels down from the top
+            style: {
+                fontSize: '13px',
+                fontFamily: 'Verdana, sans-serif'
+            }
+        }
+    }]
+});
+
+	</script>
+	<?php
     $time_table = $mysqli->query("SELECT a.* ,b.* from pos_checkout_order a LEFT JOIN pos_customer b on a.customer_id = b.customer_id");
 	$calendar = array();
 	
