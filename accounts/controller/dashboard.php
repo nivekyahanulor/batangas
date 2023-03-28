@@ -37,3 +37,46 @@ $total_lab = $mysqli->query("SELECT count(*)ub_laboratory from ub_laboratory");
 while($valtotal_lab = $total_lab->fetch_object()){ 
 		$total_l =  $valtotal_lab->ub_laboratory;
 }
+
+
+if(isset($_POST['attendance'])){
+	
+	$studentid =  $_SESSION['id'];
+	$lab_id =  $_POST['laboratory_id'];
+					
+	$mysqli->query("INSERT INTO ub_lab_attendance (student_id ,laboratory_id,status) 
+	VALUES ('$studentid','$lab_id',1)");
+	
+	$mysqli->query("UPDATE ub_laboratory_students set asttatus = 1 where student_id = '$studentid' and laboratory_id = '$lab_id'");
+	   echo '<script>
+					Swal.fire({
+							title: "Success! ",
+							text: "Attenadance Success",
+							icon: "success",
+							type: "success"
+							}).then(function(){
+								window.location = "home.php";
+							});
+			</script>';
+}
+
+if(isset($_POST['out'])){
+	
+	$studentid =  $_SESSION['id'];
+	$lab_id =  $_POST['laboratory_id'];
+					
+	$mysqli->query("INSERT INTO ub_lab_attendance (student_id ,laboratory_id,status) 
+	VALUES ('$studentid','$lab_id',2)");
+	
+	$mysqli->query("UPDATE ub_laboratory_students set asttatus = 0 where student_id = '$studentid' and laboratory_id = '$lab_id'");
+	   echo '<script>
+					Swal.fire({
+							title: "Success! ",
+							text: "Out Success",
+							icon: "success",
+							type: "success"
+							}).then(function(){
+								window.location = "home.php";
+							});
+			</script>';
+}

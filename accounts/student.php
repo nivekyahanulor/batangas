@@ -94,12 +94,12 @@
 						 <form class="row g-3" method="post">
 							<div class="col-12">
 							 <br>
-							  Are your sure to delete this Teacher Data?
-							  <input type="hidden" class="form-control" name="id" value="<?php echo $val->teacher_id;?>" required>
+							  Are your sure to delete this Student Data?
+							  <input type="hidden" class="form-control" name="id" value="<?php echo $val->student_id;?>" required>
 							</div>
 						</div>
 						<div class="modal-footer">
-						  <button type="submit" class="btn btn-warning" name="delete-teacher">Delete </button>
+						  <button type="submit" class="btn btn-warning" name="delete-student">Delete </button>
 						  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 						</div>
 						</form>

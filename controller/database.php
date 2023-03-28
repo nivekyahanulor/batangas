@@ -6,13 +6,13 @@ server with default setting (user 'root' with no password) */
 define('DB_SERVER', 'localhost');
 
 
-// define('DB_USERNAME', 'root');
-// define('DB_PASSWORD', '');
-// define('DB_NAME', 'db_batangas');
+define('DB_USERNAME', 'root');
+define('DB_PASSWORD', '');
+define('DB_NAME', 'db_batangas');
 
-define('DB_USERNAME', 'u582317762_ubcom');
-define('DB_PASSWORD', '@Programmer2013');
- define('DB_NAME', 'u582317762_ubcom');
+// define('DB_USERNAME', 'u582317762_ubcom');
+// define('DB_PASSWORD', '@Programmer2013');
+ // define('DB_NAME', 'u582317762_ubcom');
  
 /* Attempt to connect to MySQL database */
 $mysqli = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);

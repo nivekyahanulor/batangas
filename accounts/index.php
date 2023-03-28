@@ -102,35 +102,7 @@
 				
 				
               </div>
-            	<div class="col-lg-12 col-md-12 col-12 mb-4">
-                      <div class="card">
-                        <div class="card-body">
-                          <div class="card-title">
-                            <div class=" flex-shrink-0">
-                              <span class=""><b>Weekly Reports</b></span>
-                            </div>
-                          </div> 
-						    <h2 class="card-title mb-2">
-							<div id="container-weekly"></div>
-						   </h2>
-                        </div>
-                      </div>
-                    </div>
-					<div class="col-lg-12 col-md-12 col-12 mb-4">
-                      <div class="card">
-                        <div class="card-body">
-                          <div class="card-title">
-                            <div class=" flex-shrink-0">
-                              <span class=""><b>Laboratory Reports</b></span>
-                            </div>
-                          </div> 
-						    <h2 class="card-title mb-2">
-							<div id="container-top"></div>
-						   </h2>
-                        </div>
-                      </div>
-                    </div>
-         
+            	
             </div>
             <!-- / Content -->
 

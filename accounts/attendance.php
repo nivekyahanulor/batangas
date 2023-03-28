@@ -1,6 +1,6 @@
   <?php include("header.php");?>
   <?php include("nav.php");?>
-  <?php include('controller/attendance.php');?>
+  <?php include('controller/laboratory.php');?>
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
@@ -10,43 +10,29 @@
               <div class="row">
 
               <div class="col-lg-12 col-md-12 order-1">
-              <h5 class="card-title">
-							<form method="POST">
-							<div class="row">
-								<div class="col-2">
-								  <label for="inputNanme4" class="form-label">Date: </label>
-								  <input type="date" class="form-control" name="date" value="<?php if(isset($_POST['date'])){ echo $_POST['date']; } else { echo date('Y-m-d');}?>">
-								</div>
-								<div class="col-2">
-									<div style="height:27px;"></div>
-									  <button type="submit" class="btn btn-primary btn-md" name="filter"> Filter </button>
-								</div>
-								</div>
-							</form>
-							
-			  </h5>
 				
 				<div class="card">
                 <table class="table table-striped table-bordered" id="table_id">
                 <thead>
                   <tr>
-                    <th scope="col"  class="text-center">Student Name</th>
-                    <th scope="col"  class="text-center">Computer / PC</th>
-                    <th scope="col"  class="text-center">Time</th>
+                    <th scope="col"  class="text-center">Year & Section</th>
+                    <th scope="col"  class="text-center">Day</th>
+                    <th scope="col"  class="text-center">Start Time</th>
+                    <th scope="col"  class="text-center">End Time</th>
                     <th scope="col"  class="text-center">Room</th>
-                    <th scope="col"  class="text-center">Date Added</th>
                   </tr>
                 </thead>
                 <tbody>
-				<?php while($val = $ub_students_data->fetch_object()){ ?>
+				<?php while($val = $ub_laboratories->fetch_object()){ ?>
                   <tr>
-                    <td class="text-center"><?php echo $val->firstname .' '. $val->lastname;?></td>
-                    <td class="text-center"><?php echo $val->computer;?></td>
+                    <td class="text-center"><a href="lab-attendance.php?view=view&section=<?php echo $val->section_id;?>&section_name=<?php echo $val->year_level . ' '. $val->section;?>&data=<?php echo $val->lab_id;?>&lab_date=<?php echo $val->lab_date;?>&lab_time=<?php echo $val->lab_time;?>&lab_room=<?php echo $val->lab_room;?>" class="btn btn-info btn-sm" style="witdh:100% !important;"><?php echo $val->year_level . ' '. $val->section . ' | '. $val->lab_name;?></a></td>
+                    <td class="text-center"><?php echo $val->lab_date;?></td>
                     <td class="text-center"><?php echo $val->lab_time;?></td>
+                    <td class="text-center"><?php echo $val->lab_etime;?></td>
                     <td class="text-center"><?php echo $val->lab_room;?></td>
-                    <td class="text-center"><?php echo $val->attendance_date;?></td>
-                 
+                  
                   </tr>
+				
 					
                 <?php } ?>
                 </tbody>
@@ -57,5 +43,6 @@
               </div>
             
             </div>
-
+         
+		
     <?php include("footer.php");?>      

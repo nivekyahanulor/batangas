@@ -54,6 +54,27 @@ if(isset($_POST['delete-teacher'])){
 	
 }
 
+
+if(isset($_POST['delete-student'])){
+	
+	$id       = $_POST['id'];
+
+	$mysqli->query("DELETE FROM  ub_students where student_id  ='$id' ");
+	
+	
+	echo '  <script>
+					Swal.fire({
+							title: "Success! ",
+							text: " Student is Successfully Deleted",
+							icon: "success",
+							type: "success"
+							}).then(function(){
+								window.location = "student.php";
+							});
+			</script>';
+	
+}
+
 if(isset($_POST['update-student'])){
 	
 	$id             = $_POST['id'];

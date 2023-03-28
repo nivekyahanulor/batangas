@@ -5,20 +5,24 @@ include('../controller/database.php');
 
 
 $ub_students      = $mysqli->query("SELECT a.* from ub_laboratory a ");
+$ub_laboratories  = $mysqli->query("SELECT a.* , b.* ,c.* from ub_teacher_lab a left join ub_section b on b.section_id = a.section left join ub_laboratory c on a.laboratory = c.lab_id");
+
 $lid              = $_GET['data'];
+
 $ub_students_data = $mysqli->query("SELECT a.* , b.* from ub_laboratory_students a LEFT JOIN ub_students b on a.student_id = b.student_id where a.laboratory_id='$lid'");
 
 if(isset($_POST['add-lab'])){
 	
 	$title          = $_POST['title'];
 	$day            = $_POST['day'];
-	$time  			= $_POST['time'];
+	$stime  	    = $_POST['stime'];
+	$etime  	    = $_POST['etime'];
 	$room           = $_POST['room'];
 	$id             = $_SESSION['id'];
 	
 
-	$mysqli->query("INSERT INTO ub_laboratory (lab_name , lab_date ,lab_time,lab_room,teacher_id) 
-			VALUES ('$title','$day','$time','$room','$id')");
+	$mysqli->query("INSERT INTO ub_laboratory (lab_name , lab_date ,lab_time,lab_etime,lab_room,teacher_id) 
+			VALUES ('$title','$day','$stime','$etime','$room','$id')");
 
   	        echo '<script>
 					Swal.fire({
@@ -28,6 +32,37 @@ if(isset($_POST['add-lab'])){
 							type: "success"
 							}).then(function(){
 								window.location = "laboratory.php";
+							});
+			</script>';
+	
+}
+
+if(isset($_POST['add-tlab'])){
+	
+	$section        = $_POST['section'];
+	$laboratory     = $_POST['laboratory'];
+	$id             = $_SESSION['id'];
+	
+	$stud  = $mysqli->query("SELECT * from ub_students where section_id ='$section'");
+	while($val = $stud->fetch_object()){ 
+
+	$student   = $val->student_id;
+	$mysqli->query("INSERT INTO ub_laboratory_students (student_id , laboratory_id ,section,computer) 
+				VALUES ('$student','$laboratory','$section','')");
+				
+	}
+
+	$mysqli->query("INSERT INTO ub_teacher_lab (section , laboratory ,teacher_id) 
+			VALUES ('$section','$laboratory','$id')");
+
+  	        echo '<script>
+					Swal.fire({
+							title: "Success! ",
+							text: "Laboratory Details Successfully Added",
+							icon: "success",
+							type: "success"
+							}).then(function(){
+								window.location = "laboratories.php";
 							});
 			</script>';
 	
@@ -87,6 +122,27 @@ if(isset($_POST['delete-teacher'])){
 			</script>';
 	
 }
+
+
+if(isset($_POST['delete-labs'])){
+	
+	$id       = $_POST['id'];
+
+	$mysqli->query("DELETE FROM  ub_teacher_lab where tl_id   ='$id' ");
+	
+	
+	echo '  <script>
+					Swal.fire({
+							title: "Success! ",
+							text: " Laboratory Details is Successfully Deleted",
+							icon: "success",
+							type: "success"
+							}).then(function(){
+								window.location = "laboratories.php";
+							});
+			</script>';
+	
+}
 if(isset($_POST['delete-lab-student'])){
 	
 	$id          = $_POST['labs_id'];
@@ -113,18 +169,27 @@ if(isset($_POST['delete-lab-student'])){
 if(isset($_POST['update-lab'])){
 	
 	$id             = $_POST['id'];
-	$title          = $_POST['title'];
-	$day            = $_POST['day'];
-	$time  			= $_POST['time'];
-	$room           = $_POST['room'];
+	$section        = $_POST['section'];
+	$laboratory     = $_POST['laboratory'];
 	
-	$mysqli->query("UPDATE  ub_laboratory set lab_name  ='$title' ,
-										    lab_date  ='$day' ,
-										    lab_time  ='$time' ,
-										    lab_room  ='$room' 
-										    WHERE lab_id  ='$id'
-					");
+	$mysqli->query("delete ub_laboratory_students where laboratory_id ='$laboratory' and section = '$section'");
 		
+	$stud  = $mysqli->query("SELECT * from ub_students where section_id ='$section'");
+	while($val = $stud->fetch_object()){ 
+
+	$student   = $val->student_id;
+	$mysqli->query("INSERT INTO ub_laboratory_students (student_id , laboratory_id ,computer) 
+				VALUES ('$student','$laboratory','')");
+			
+	
+	$mysqli->query("UPDATE  ub_teacher_lab set section  ='$section' ,
+										    laboratory  ='$laboratory' 
+										    WHERE tl_id   ='$id'
+					");
+					
+   	
+	}
+	
 	echo '  <script>
 					Swal.fire({
 							title: "Success! ",
@@ -132,7 +197,7 @@ if(isset($_POST['update-lab'])){
 							icon: "success",
 							type: "success"
 							}).then(function(){
-								window.location = "laboratory.php";
+								window.location = "laboratories.php";
 							});
 			</script>';
 	
@@ -146,6 +211,8 @@ if(isset($_POST['update-lab-student'])){
 	$lab_time    = $_POST['lab_time'];
 	$lab_room    = $_POST['lab_room'];
 	$data        = $_POST['data'];
+	$section     = $_POST['section'];
+	$sectionname = $_POST['section_name'];
 	
 	$mysqli->query("UPDATE  ub_laboratory_students set computer  ='$computer'
 										    WHERE labs_id  ='$id'
@@ -158,7 +225,7 @@ if(isset($_POST['update-lab-student'])){
 							icon: "success",
 							type: "success"
 							}).then(function(){
-								window.location = "laboratory-records.php?data='.$data.'&lab_date='.$lab_date.'&lab_time='.$lab_time.'&lab_room='.$lab_room.'&updated";
+								window.location = "laboratory-records.php?section='.$section.'&section_name='.$sectionname.'&data='.$data.'&lab_date='.$lab_date.'&lab_time='.$lab_time.'&lab_room='.$lab_room.'&updated";
 							});
 			</script>';
 	

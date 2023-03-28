@@ -32,6 +32,20 @@
 			
 		header("location:../accounts/student.php");
 		} else {
-			header("location:../login.php?error");
+			$sql1      = "SELECT * FROM ub_students WHERE id_number='$username' AND BINARY password='$password'";
+			$result1   = mysqli_query($mysqli, $sql1);
+
+			$row1      = mysqli_fetch_assoc($result1);
+			$rows1	   = mysqli_num_rows($result1);
+			if($rows1==1){
+				
+				$_SESSION['name']  = $row1['firstname'].' '. $row1['lastname'];
+				$_SESSION['id']    = $row1['student_id'];
+				$_SESSION['role']  = 3;
+				
+				header("location:../accounts/home.php");
+			} else {
+				header("location:../login.php?error");
+			}
 		}
 	}

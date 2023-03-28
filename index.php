@@ -13,13 +13,8 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
-	<?php
-	include('controller/database.php');
-
 	
-	
-	?>
-    <title>UNIVERSITY OF BATANGAS</title>
+    <title>UNIVERSITY OF BATANGAS | LOGIN</title>
 
     <meta name="description" content="" />
 
@@ -41,16 +36,9 @@
     <link rel="stylesheet" href="accounts/assets/vendor/css/core.css" class="template-customizer-core-css" />
     <link rel="stylesheet" href="accounts/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="accounts/assets/css/demo.css" />
-
-    <!-- Vendors CSS -->
     <link rel="stylesheet" href="accounts/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-
-    <!-- Page CSS -->
-    <!-- Page -->
     <link rel="stylesheet" href="accounts/assets/vendor/css/pages/page-auth.css" />
-    <!-- Helpers -->
     <script src="accounts/assets/vendor/js/helpers.js"></script>
-
     <script src="accounts/assets/js/config.js"></script>
   </head>
 
@@ -66,31 +54,46 @@
 			<?php 
 			 if(isset($_GET['registered'])){
 				echo '<br> <div class="alert alert-success alert-dismissible fade show" role="alert"> <center><i class="bi  bi-exclamation-circle me-1"></i>SUCCESS! Login now  using your account!<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
-			}  if(isset($_GET['error'])){
-				echo '<br> <div class="alert alert-warning alert-dismissible fade show" role="alert"> <center><i class="bi  bi-exclamation-circle me-1"></i>NO SCHEDULE OR RECORD FOUND!<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
 			} 
 			?>
              <center>
               <h4 class="mb-2"> <img src="assets/logo.png" width="100px"></h4>
-              <h4 class="mb-4">ENTER YOUR STUDENT ID</h4>
+              <p class="mb-4">Please sign-in to your account</p>
 			</center>
-		
-              <form id="formAuthentication" class="mb-3" method="post" action="controller/process.php">
+              <form id="formAuthentication" class="mb-3" method="post" action="controller/auth.php">
                 <div class="mb-3">
-                  <label for="email" class="form-label text-center">STUDENT ID</label>
+                  <label for="email" class="form-label">Username</label>
                   <input
                     type="text"
-                    class="form-control text-center"
+                    class="form-control"
                     id="email"
-                    name="student_number"
-                    placeholder="Enter Student ID"
+                    name="username"
+                    placeholder="Enter or username"
                     autofocus
                   />
                 </div>
-              
+                <div class="mb-3 form-password-toggle">
+                  <div class="d-flex justify-content-between">
+                    <label class="form-label" for="password">Password</label>
+                   
+                  </div>
+                  <div class="input-group input-group-merge">
+                    <input
+                      type="password"
+                      id="password"
+                      class="form-control"
+                      name="password"
+                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                      aria-describedby="password"
+                    />
+                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                  </div>
+                </div>
                
                 <div class="mb-3">
-                  <button class="btn btn-primary d-grid w-100" type="submit">PROCESS</button>
+                  <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
+				  <br>
+				  <center> <small> STUDENT ? REGISTER YOUR ACCOUNT <a href="register.php"> HERE !</a> </small> </center>
                 </div>
               </form>
 
@@ -118,7 +121,9 @@
     <!-- Main JS -->
     <script src="accounts/assets/js/main.js"></script>
 
+    <!-- Page JS -->
 
+    <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>
 </html>

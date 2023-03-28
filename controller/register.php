@@ -1,64 +1,25 @@
 <?php
-include('database.php');
+	include('database.php');
 
-	// error_reporting(0);
-	
-	use PHPMailer\PHPMailer\PHPMailer;
-	use PHPMailer\PHPMailer\Exception;
-
-	require 'phpmailer/vendor/phpmailer/phpmailer/src/Exception.php';
-	require 'phpmailer/vendor/phpmailer/phpmailer/src/PHPMailer.php';
-	require 'phpmailer/vendor/phpmailer/phpmailer/src/SMTP.php';
-	
 	if(isset($_POST['register'])){
 		
 		$firstname    = $_POST['firstname'];
 		$lastname     = $_POST['lastname'];
 		$email        = $_POST['email'];
-		$address      = $_POST['address'];
 		$contact 	  = $_POST['contact'];
 		$password     = $_POST['password'];
-		$username     = $_POST['username'];
+		$studentid     = $_POST['studentid'];
 		$name         = $firstname .' '.$lastname;
-		$check        = $mysqli->query("SELECT * from pos_customer where email='$email'");
+		$check        = $mysqli->query("SELECT * from ub_students where id_number='$studentid'");
 		$count        = $check->num_rows;
 		
 		if($count !=0){
 			echo "<script> window.location.href='../register.php?duplicate'; </script>";
 		} else {
 			
-			// $mail = new PHPMailer();
-			// $mail->isSMTP();
-			// $mail->Host     = 'smtp.hostinger.com';
-			// $mail->SMTPAuth = true;
-			// $mail->Username = 'administrator@mlorense.com';
-			// $mail->Password = '@Mlorense2021';
-			// $mail->SMTPSecure = 'ssl'; // tls
-			// $mail->Port     = 465; // 587
-			// $mail->setFrom('administrator@mlorense.com', 'ML ORENSE');
-			// $mail->addAddress($email);
-			// $mail->Subject = 'Account Confirmation';
-			// $mail->isHTML(true);
-
-
-			// $mail->Body = "<html>
-								// <body>
-									// <h1>Hello , " .$name ." </h1>
-									// <p> Thank you for registering to M.L ORENSE Dental Clinic</p>
-									// <p> Kindly confirm your email address via the link below in order to start using your profile</p>
-									// <p> <a href='http://mlorense.com/confirm.php?name=$name&email=$email'> Link Here </a> </p>
-								// </body>
-							// </html>";
-
-			// if ($mail->send()) {
-				// $message = 'success';
-			// } else {
-				// $message = 'failed';
-			// }
-			
-		$mysqli->query("INSERT INTO pos_customer (firstname,lastname,email,address,contact,password,username) 
-								VALUES ('$firstname','$lastname','$email','$address','$contact','$password','$username')");
-		echo "<script> window.location.href='../login.php?registered'; </script>";
+		$mysqli->query("INSERT INTO ub_students (firstname,lastname,email,contact,password,id_number) 
+								VALUES ('$firstname','$lastname','$email','$contact','$password','$studentid')");
+		echo "<script> window.location.href='../index.php?registered'; </script>";
 		
 	}
 	}

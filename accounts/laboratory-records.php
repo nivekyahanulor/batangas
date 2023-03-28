@@ -11,7 +11,7 @@
 
               <div class="col-lg-12 col-md-12 order-1">
 			 
-              <h5 class="card-title"><button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#add-teacher"> <i class="bi bi-plus"></i> Add Student </button></h5>
+              <!-- <h5 class="card-title"><button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#add-teacher"> <i class="bi bi-plus"></i> Add Student </button></h5>-->
 				<?php if(isset($_GET['added'])){?>
 				<div class="alert alert-info alert-dismissable">
 					<strong>Student Added to Laboratory!</strong> 
@@ -68,6 +68,8 @@
 							  <input type="hidden" class="form-control" name="lab_time" value="<?php echo $_GET['lab_time'];?>" >
 							  <input type="hidden" class="form-control" name="lab_room" value="<?php echo $_GET['lab_room'];?>" >
 							  <input type="hidden" class="form-control" name="data" value="<?php echo $_GET['data'];?>" >
+							  <input type="hidden" class="form-control" name="section" value="<?php echo $_GET['section'];?>" >
+							  <input type="hidden" class="form-control" name="section_name" value="<?php echo $_GET['section_name'];?>" >
 							</div>
 					
 					 </div>

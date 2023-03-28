@@ -16,7 +16,7 @@
                 <table class="table table-striped table-bordered" id="table_id">
                 <thead>
                   <tr>
-                    <th scope="col"  class="text-center">Lab Name</th>
+                    <th scope="col"  class="text-center">Year & Section</th>
                     <th scope="col"  class="text-center">Day</th>
                     <th scope="col"  class="text-center">Start Time</th>
                     <th scope="col"  class="text-center">End Time</th>
@@ -26,9 +26,9 @@
                   </tr>
                 </thead>
                 <tbody>
-				<?php while($val = $ub_students->fetch_object()){ ?>
+				<?php while($val = $ub_laboratories->fetch_object()){ ?>
                   <tr>
-                    <td class="text-center"><a href="laboratory-records.php?data=<?php echo $val->lab_id;?>&lab_date=<?php echo $val->lab_date;?>&lab_time=<?php echo $val->lab_time;?>&lab_room=<?php echo $val->lab_room;?>" class="btn btn-info btn-sm"><?php echo $val->lab_name;?></a></td>
+                    <td class="text-center"><a href="laboratory-records.php?view=view&section=<?php echo $val->section_id;?>&section_name=<?php echo $val->year_level . ' '. $val->section;?>&data=<?php echo $val->lab_id;?>&lab_date=<?php echo $val->lab_date;?>&lab_time=<?php echo $val->lab_time;?>&lab_room=<?php echo $val->lab_room;?>" class="btn btn-info btn-sm" style="witdh:100% !important;"><?php echo $val->year_level . ' '. $val->section . ' | '. $val->lab_name;?></a></td>
                     <td class="text-center"><?php echo $val->lab_date;?></td>
                     <td class="text-center"><?php echo $val->lab_time;?></td>
                     <td class="text-center"><?php echo $val->lab_etime;?></td>
@@ -49,35 +49,31 @@
 						<div class="modal-body">
 						 <form class="row g-3" method="post">
 							<div class="col-12">
-							  <label for="inputNanme4" class="form-label">Lab Name: </label>
-							  <input type="text" class="form-control" name="title" value="<?php echo $val->lab_name;?>" required>
+							  <label for="inputNanme4" class="form-label">Section: </label>
+							  <select type="text" class="form-control" name="section" required>
+								<option value=""> - Select - </option>
+									 <?php 
+									  $tbl_student = $mysqli->query("SELECT * FROM ub_section");
+									  while($serv = $tbl_student->fetch_object()){ ?>
+									 <option value="<?php echo $serv->section_id;?>"> <?php echo $serv->year_level . ' ' . $serv->section;?></option>
+								  <?php } ?>
+							 </select>
 							</div>
+						
 							<div class="col-12">
-							  <label for="inputNanme4" class="form-label">Day: </label>
-							  <input type="hidden" class="form-control" name="id" value="<?php echo $val->lab_id;?>" required>
-								<select class="form-control" name="day">	
-									<option value=""> - Select Day - </option>
-									<option value="Monday" <?php if($val->lab_date=="Monday"){ echo "selected";} else {}?>> Monday </option>
-									<option value="Tuesday" <?php if($val->lab_date=="Tuesday"){ echo "selected"; } else {}?>> Tuesday </option>
-									<option value="Wednesday" <?php if($val->lab_date=="Wednesday"){ echo "selected"; } else {}?>> Wednesday </option>
-									<option value="Thursday" <?php if($val->lab_date=="Thursday"){ echo "selected";} else {}?>>Thursday </option>
-									<option value="Friday" <?php if($val->lab_date=="Friday"){ echo "selected"; } else {}?>> Friday </option>
-									<option value="Saturday" <?php if($val->lab_date=="Saturday"){ echo "selected"; } else {}?>> Saturday </option>
-								</select>
+							  <label for="inputNanme4" class="form-label">Laboratory: </label>
+							   <select type="text" class="form-control" name="laboratory" required>
+								<option value=""> - Select - </option>
+									 <?php 
+									  $tbl_student = $mysqli->query("SELECT * FROM ub_laboratory");
+									  while($serv = $tbl_student->fetch_object()){ ?>
+									 <option value="<?php echo $serv->lab_id;?>"> <?php echo  $serv->lab_name;?></option>
+								  <?php } ?>
+							 </select>
 							</div>
-							<div class="col-12">
-							  <label for="inputNanme4" class="form-label">Start Time: </label>
-							  <input type="time" class="form-control" name="time" value="<?php echo $val->lab_time;?>" required>
-							</div>
-							<div class="col-12">
-							  <label for="inputNanme4" class="form-label">End Time: </label>
-							  <input type="time" class="form-control" name="etime" value="<?php echo $val->lab_etime;?>" required>
-							</div>
+					
+							  <input type="hidden" class="form-control" name="id" value="<?php echo $val->tl_id;?>" required>
 							
-							<div class="col-12">
-							  <label for="inputNanme4" class="form-label">Room: </label>
-							  <input type="text" class="form-control" name="room" value="<?php echo $val->lab_room;?>" required>
-							</div>
 						
 						 </div>
 							<div class="modal-footer">
@@ -100,11 +96,11 @@
 							<div class="col-12">
 							 <br>
 							  Are your sure to delete this Laboratory Data?
-							  <input type="hidden" class="form-control" name="id" value="<?php echo $val->lab_id;?>" required>
+							  <input type="hidden" class="form-control" name="id" value="<?php echo $val->tl_id;?>" required>
 							</div>
 						</div>
 						<div class="modal-footer">
-						  <button type="submit" class="btn btn-warning" name="delete-teacher">Delete </button>
+						  <button type="submit" class="btn btn-warning" name="delete-labs">Delete </button>
 						  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 						</div>
 						</form>
@@ -131,39 +127,33 @@
                     <div class="modal-body">
                      <form class="row g-3" method="post">
 						<div class="col-12">
-						  <label for="inputNanme4" class="form-label">Title: </label>
-						  <input type="text" class="form-control" name="title" required>
+						  <label for="inputNanme4" class="form-label">Section: </label>
+						  <select type="text" class="form-control" name="section" required>
+							<option value=""> - Select - </option>
+								 <?php 
+								  $tbl_student = $mysqli->query("SELECT * FROM ub_section");
+								  while($serv = $tbl_student->fetch_object()){ ?>
+								 <option value="<?php echo $serv->section_id;?>"> <?php echo $serv->year_level . ' ' . $serv->section;?></option>
+							  <?php } ?>
+						 </select>
 						</div>
+					
 						<div class="col-12">
-						  <label for="inputNanme4" class="form-label">Day: </label>
-							<select class="form-control" name="day">	
-								<option value=""> - Select Day - </option>
-								<option value="Monday"> Monday </option>
-								<option value="Tuesday"> Tuesday </option>
-								<option value="Wednesday"> Wednesday </option>
-								<option value="Thursday">Thursday </option>
-								<option value="Friday"> Friday </option>
-								<option value="Saturday"> Saturday </option>
-							</select>
-						</div>
-						<div class="col-12">
-						  <label for="inputNanme4" class="form-label">Start Time: </label>
-						  <input type="time" class="form-control" name="stime" required>
-						</div>
-						<div class="col-12">
-						  <label for="inputNanme4" class="form-label">End Time: </label>
-						  <input type="time" class="form-control" name="etime" required>
-						</div>
-						
-						<div class="col-12">
-						  <label for="inputNanme4" class="form-label">Room: </label>
-						  <input type="text" class="form-control" name="room" required>
+						  <label for="inputNanme4" class="form-label">Laboratory: </label>
+						   <select type="text" class="form-control" name="laboratory" required>
+							<option value=""> - Select - </option>
+								 <?php 
+								  $tbl_student = $mysqli->query("SELECT * FROM ub_laboratory");
+								  while($serv = $tbl_student->fetch_object()){ ?>
+								 <option value="<?php echo $serv->lab_id;?>"> <?php echo  $serv->lab_name;?></option>
+							  <?php } ?>
+						 </select>
 						</div>
 					
 					
 					 </div>
                     <div class="modal-footer">
-                      <button type="submit" class="btn btn-primary" name="add-lab">Save </button>
+                      <button type="submit" class="btn btn-primary" name="add-tlab">Save </button>
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
 					</form>

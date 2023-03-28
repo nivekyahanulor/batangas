@@ -62,6 +62,35 @@
                 <div data-i18n="Analytics">Teachers</div>
               </a>
             </li>
+			
+			<li class="menu-item <?php echo $section;?>">
+              <a href="section.php" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-detail"></i>
+                <div data-i18n="Analytics">Year & Section</div>
+              </a>
+            </li>
+			
+			<li class="menu-item <?php echo $laboratory;?>">
+              <a href="laboratory.php" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-window-alt"></i>
+                <div data-i18n="Analytics">Laboratory</div>
+              </a>
+            </li>
+			
+				<li class="menu-item <?php echo $reports;?>">
+              <a href="reports.php" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-bar-chart-alt"></i>
+                <div data-i18n="Analytics">Reports</div>
+              </a>
+            </li>
+			
+			<li class="menu-item <?php echo $computer;?>">
+              <a href="computers.php" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-laptop"></i>
+                <div data-i18n="Analytics">Computers</div>
+              </a>
+            </li>
+			
 			<li class="menu-item <?php echo $users;?>">
               <a href="system-users.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user-circle"></i>
@@ -70,7 +99,7 @@
             </li>
 			
 			
-		  <?php } else { ?>
+		  <?php } else if($_SESSION['role'] == 2){?>
 			<li class="menu-item <?php echo $student;?>">
               <a href="student.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
@@ -78,7 +107,7 @@
               </a>
             </li>
 			<li class="menu-item <?php echo $laboratory;?>">
-              <a href="laboratory.php" class="menu-link">
+              <a href="laboratories.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-label"></i>
                 <div data-i18n="Analytics">Laboratory</div>
               </a>
@@ -95,7 +124,26 @@
                 <div data-i18n="Analytics">Tickets</div>
               </a>
             </li>
+		  
+		  
+		   <?php } else if($_SESSION['role'] == 3){?>
+			<li class="menu-item <?php echo $student;?>">
+              <a href="home.php" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-user"></i>
+                <div data-i18n="Analytics">Home</div>
+              </a>
+            </li>
+			<li class="menu-item <?php echo $laboratory;?>">
+              <a href="student-attendance.php" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-label"></i>
+                <div data-i18n="Analytics">Attendance</div>
+              </a>
+            </li>
+			
 		  <?php } ?>
+		  
+		  
+		  
             <li class="menu-item">
               <a href="logout.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-log-out-circle"></i>
@@ -162,6 +210,10 @@
 					ATTENDANCE LIST
 				<?php } else if($page == "ticket.php" ){?>
 					TICKETS 
+				<?php } else if($page == "section.php" ){?>
+					SECTIONS 
+				<?php } else if($page == "computers.php" ){?>
+					COMPUTERSd 
 				<?php } ?>
 				</b>
                 </div>

@@ -35,7 +35,7 @@
 		error_reporting(0);
 		$uri_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 		$uri_segments = explode('/', $uri_path);
-		$page =  $uri_segments[2];
+		$page =  $uri_segments[3];
 		if ( $page == 'index.php'  ) {
             $index = 'active';
         }else if ($page == 'order.php') {
@@ -54,6 +54,10 @@
             $student = 'active';
         }else if ($page == 'attendance.php' ) {
             $attendance = 'active';
+        }else if ($page == 'section.php' ) {
+            $section = 'active';
+        }else if ($page == 'computers.php' ) {
+            $computers = 'active';
         }else if ($page == 'laboratory.php' || $page == 'laboratory-records.php' ) {
             $laboratory = 'active';
         }else if ($page == 'ticket.php' || $page == 'tickets.php' ) {

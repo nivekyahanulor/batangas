@@ -31,7 +31,11 @@ if(isset($_POST['add-ticket'])){
         $pass[] = $alphabet[$n];
     }
    
-	$transcode =  implode($pass);
+	$brand = 'T-';
+	$cur_date = date('d').date('m').date('y');
+	$invoice = $brand.$cur_date;
+	$customer_id = rand(12 , 99);
+	$transcode = $invoice.'-'.$customer_id;
 	
 	
     
@@ -41,15 +45,15 @@ if(isset($_POST['add-ticket'])){
         "headers" => [
             "Content-type" => "application/json"
         ],
-        "auth" => ["aa519e2d-0975-4f86-81c7-1ddd191fdbfe", "QQeCTQoR6xBKwFQJQTI2UlrJCbCyrw8RNh37Z4Ti"],
+        "auth" => ["b3bad0ff-f46d-4929-a30c-8deb4cc4c0be", "4yCDWrz3Q3EP7JZPfO4jV7odj6ha4eFNuCMpSipY"],
         "json" => [
-            "recipient" => "09318326634,09493374841",
+            "recipient" => "09357396286",
             "message" => "Hello New Ticket has been raise. Ticket Code ". $transcode
         ]
     ]);
     
     if ($response->getStatusCode() == 200) {
-        //echo $response->getBody();
+        // echo $response->getBody();
     }
 
 	$mysqli->query("INSERT INTO ub_tickets (ticket_number, title , content ,teacher_id,status,lab) 
